@@ -16,15 +16,17 @@ public class UserServiceImpl implements IUserService {
 
     @Autowired
     private IUser repo;
-    @Autowired
-    EmailDetails details;
+
+
+    EmailDetails details = new EmailDetails();
 
     @Override
     public User addUser(User user) {
 
+
         details.setRecipient("andrej.macic121@gmail.com");
         details.setSubject("Username: " + user.getUsername() + " Created" );
-        System.out.println("username: "  + user.getUsername());
+        details.setMsgBody("A new user with the username of: " + user.getUsername() + "was created");
 
         emailService.sendSimpleMail(details);
         return repo.save(user);
